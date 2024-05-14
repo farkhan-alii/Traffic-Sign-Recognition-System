@@ -1,0 +1,330 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Upload Traffic Signs To Predict🚦 </h2>
+<style>
+    .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: #2dcba7;
+        color: black;
+        text-align: center;
+        font-size: 25px;
+        font-weight: bold;
+    }
+</style>
+
+<div>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <form id="upload-file" method="post" enctype="multipart/form-data">
+        <label for="imageUpload" class="upload-label">
+            Upload Image.
+        </label>
+        <input type="file" name="file" id="imageUpload" accept=".png, .jpg, .jpeg">
+    </form>
+    <h3>Learn about Traffic Signs🚦 </h3>
+    <p>Click on Traffic Signs for Details. </p>
+    <div class="image-section" style="display:none;">
+        <div class="img-preview">
+            <div id="imagePreview">
+            </div>
+        </div>
+        <div>
+            <button type="button" class="btn btn-primary btn-lg " id="btn-predict">Predict Traffic🚦 Signs</button>
+        </div>
+    </div>
+
+    <div class="loader" style="display:none;"></div>
+
+    <h3 id="result">
+        <span> </span>
+    </h3>
+</div>
+
+<main class="gallery">
+    <div class="photo-container" onclick="showDescription(this)">
+        <img src="{{ url_for('static', filename='Meta/0.png') }}" alt="Traffic Sign 0" />
+        <!-- Description for Traffic Sign 0 -->
+        <div class="description" style="display:none;">Speed Limit 20km/h </div>
+    </div>
+    
+    <div class="photo-container" onclick="showDescription(this)">
+        <img src="{{ url_for('static', filename='Meta/1.png') }}" alt="Traffic Sign 1" />
+        <!-- Description for Traffic Sign 1 -->
+        <div class="description" style="display:none;">Speed limit (30km/h)</div>
+    </div>
+    
+    <div class="photo-container" onclick="showDescription(this)">
+        <img src="{{ url_for('static', filename='Meta/2.png') }}" alt="Traffic Sign 2" />
+        <!-- Description for Traffic Sign 2 -->
+        <div class="description" style="display:none;">Speed limit (50km/h)</div>
+    </div>
+    <div class="photo-container" onclick="showDescription(this)">
+        <img src="{{ url_for('static', filename='Meta/40.png') }}" alt="Traffic Sign 39" />
+        <!-- Description for Traffic Sign 2 -->
+        <div class="description" style="display:none;">The "Roundabout mandatory" sign indicates that drivers must enter and use the roundabout ahead.</div>
+    </div>
+    <div class="photo-container" onclick="showDescription(this)">
+        <img src="{{ url_for('static', filename='Meta/3.png') }}" alt="Traffic Sign 3" />
+        <!-- Description for Traffic Sign 2 -->
+        <div class="description" style="display:none;">Speed limit (60km/h)</div>
+    </div>
+
+
+    <div class="photo-container" onclick="showDescription(this)">
+        <img src="{{ url_for('static', filename='Meta/4.png') }}" alt="Traffic Sign 4" />
+        <!-- Description for Traffic Sign 2 -->
+        <div class="description" style="display:none;">Speed limit (70km/h)</div>
+    </div>
+
+    <div class="photo-container" onclick="showDescription(this)">
+        <img src="{{ url_for('static', filename='Meta/5.png') }}" alt="Traffic Sign 5" />
+        <!-- Description for Traffic Sign 2 -->
+        <div class="description" style="display:none;">Speed limit (80km/h)</div>
+    </div>
+    <div class="photo-container" onclick="showDescription(this)">
+        <img src="{{ url_for('static', filename='Meta/37.png') }}" alt="Traffic Sign 36" />
+        <!-- Description for Traffic Sign 2 -->
+        <div class="description" style="display:none;">The "Go straight or left" sign allows drivers to either proceed straight ahead or turn left at the upcoming intersection.</div>
+    </div>
+    <div class="photo-container" onclick="showDescription(this)">
+        <img src="{{ url_for('static', filename='Meta/6.png') }}" alt="Traffic Sign 6" />
+        <!-- Description for Traffic Sign 2 -->
+        <div class="description" style="display:none;">End of speed limit (80km/h)</div>
+    </div>
+
+    <div class="photo-container" onclick="showDescription(this)">
+        <img src="{{ url_for('static', filename='Meta/7.png') }}" alt="Traffic Sign 7" />
+        <!-- Description for Traffic Sign 2 -->
+        <div class="description" style="display:none;">Speed limit (100km/h)</div>
+    </div>
+
+    <div class="photo-container" onclick="showDescription(this)">
+        <img src="{{ url_for('static', filename='Meta/8.png') }}" alt="Traffic Sign 8" />
+        <!-- Description for Traffic Sign 2 -->
+        <div class="description" style="display:none;">Speed limit (120km/h)</div>
+    </div>
+    <div class="photo-container" onclick="showDescription(this)">
+        <img src="{{ url_for('static', filename='Meta/39.png') }}" alt="Traffic Sign 38" />
+        <!-- Description for Traffic Sign 2 -->
+        <div class="description" style="display:none;">The "Keep left" sign instructs drivers to stay on the left side of the road or lane ahead.</div>
+    </div>
+    <div class="photo-container" onclick="showDescription(this)">
+        <img src="{{ url_for('static', filename='Meta/9.png') }}" alt="Traffic Sign 9" />
+        <!-- Description for Traffic Sign 2 -->
+        <div class="description" style="display:none;">
+            The "No passing" sign prohibits overtaking or passing other vehicles on the road.</div>
+    </div>
+
+    <div class="photo-container" onclick="showDescription(this)">
+        <img src="{{ url_for('static', filename='Meta/11.png') }}" alt="Traffic Sign 10" />
+        <!-- Description for Traffic Sign 2 -->
+        <div class="description" style="display:none;">
+            The "Cross Road Ahead" sign warns drivers of an upcoming intersection with another road crossing ahead.</div>
+    </div>
+
+    <div class="photo-container" onclick="showDescription(this)">
+        <img src="{{ url_for('static', filename='Meta/12.png') }}" alt="Traffic Sign 11" />
+        <!-- Description for Traffic Sign 2 -->
+        <div class="description" style="display:none;">
+            The "Priority road" sign indicates that the road ahead has priority over intersecting roads.</div>
+    </div>
+    <div class="photo-container" onclick="showDescription(this)">
+        <img src="{{ url_for('static', filename='Meta/38.png') }}" alt="Traffic Sign 37" />
+        <!-- Description for Traffic Sign 2 -->
+        <div class="description" style="display:none;">
+            The "Keep right" sign instructs drivers to stay on the right side of the road or lane ahead.</div>
+    </div>
+    <div class="photo-container" onclick="showDescription(this)">
+        <img src="{{ url_for('static', filename='Meta/13.png') }}" alt="Traffic Sign 12" />
+        <!-- Description for Traffic Sign 2 -->
+        <div class="description" style="display:none;">The "Yield" sign instructs drivers to give priority to other traffic or pedestrians when approaching an intersection.</div>
+    </div>
+
+    <div class="photo-container" onclick="showDescription(this)">
+        <img src="{{ url_for('static', filename='Meta/14.png') }}" alt="Traffic Sign 13" />
+        <!-- Description for Traffic Sign 2 -->
+        <div class="description" style="display:none;">
+            The "Stop" sign mandates a complete halt at intersections for safety.</div>
+    </div>
+
+    <div class="photo-container" onclick="showDescription(this)">
+        <img src="{{ url_for('static', filename='Meta/15.png') }}" alt="Traffic Sign 14" />
+        <!-- Description for Traffic Sign 2 -->
+        <div class="description" style="display:none;">The "No vehicles" sign indicates that motor vehicles are prohibited from entering the specified area or road.</div>
+    </div>
+
+    <div class="photo-container" onclick="showDescription(this)">
+        <img src="{{ url_for('static', filename='Meta/16.png') }}" alt="Traffic Sign 15" />
+        <!-- Description for Traffic Sign 2 -->
+        <div class="description" style="display:none;">
+            The "Vehicle > 3.5 tons prohibited" sign bans heavy vehicles from entering.</div>
+    </div>
+
+    <div class="photo-container" onclick="showDescription(this)">
+        <img src="{{ url_for('static', filename='Meta/17.png') }}" alt="Traffic Sign 16" />
+        <!-- Description for Traffic Sign 2 -->
+        <div class="description" style="display:none;">The "No entry" sign prohibits entry into the specified area or road.'</div>
+    </div>
+
+    <div class="photo-container" onclick="showDescription(this)">
+        <img src="{{ url_for('static', filename='Meta/18.png') }}" alt="Traffic Sign 17" />
+        <!-- Description for Traffic Sign 2 -->
+        <div class="description" style="display:none;">
+            The "General caution" sign warns drivers to be alert for possible hazards ahead.</div>
+    </div>
+
+    <div class="photo-container" onclick="showDescription(this)">
+        <img src="{{ url_for('static', filename='Meta/19.png') }}" alt="Traffic Sign 18" />
+        <!-- Description for Traffic Sign 2 -->
+        <div class="description" style="display:none;">
+            The "Dangerous curve left" sign warns of a sharp left curve ahead, indicating potential danger to drivers.</div>
+    </div>
+
+    <div class="photo-container" onclick="showDescription(this)">
+        <img src="{{ url_for('static', filename='Meta/20.png') }}" alt="Traffic Sign 19" />
+        <!-- Description for Traffic Sign 2 -->
+        <div class="description" style="display:none;">
+            The "Dangerous curve right" sign warns of a sharp right curve ahead, indicating potential danger to drivers.</div>
+    </div>
+
+    <div class="photo-container" onclick="showDescription(this)">
+        <img src="{{ url_for('static', filename='Meta/21.png') }}" alt="Traffic Sign 20" />
+        <!-- Description for Traffic Sign 2 -->
+        <div class="description" style="display:none;">The "Double curve" sign warns of consecutive curves ahead, advising caution.</div>
+    </div>
+
+    <div class="photo-container" onclick="showDescription(this)">
+        <img src="{{ url_for('static', filename='Meta/22.png') }}" alt="Traffic Sign 21" />
+        <!-- Description for Traffic Sign 2 -->
+        <div class="description" style="display:none;">
+            The "Bumpy road" sign warns of uneven road surfaces ahead.</div>
+    </div>
+
+    <div class="photo-container" onclick="showDescription(this)">
+        <img src="{{ url_for('static', filename='Meta/23.png') }}" alt="Traffic Sign 22" />
+        <!-- Description for Traffic Sign 2 -->
+        <div class="description" style="display:none;">
+            The "Slippery road" sign warns of slippery conditions ahead, urging caution.</div>
+    </div>
+
+    <div class="photo-container" onclick="showDescription(this)">
+        <img src="{{ url_for('static', filename='Meta/24.png') }}" alt="Traffic Sign 23" />
+        <!-- Description for Traffic Sign 2 -->
+        <div class="description" style="display:none;">
+            The "Road narrows on the right" sign warns of a narrowing road ahead.</div>
+    </div>
+
+    <div class="photo-container" onclick="showDescription(this)">
+        <img src="{{ url_for('static', filename='Meta/25.png') }}" alt="Traffic Sign 24" />
+        <!-- Description for Traffic Sign 2 -->
+        <div class="description" style="display:none;">
+            The "Road work" sign alerts drivers to the presence of construction or maintenance work on the road ahead.</div>
+    </div>
+
+    <div class="photo-container" onclick="showDescription(this)">
+        <img src="{{ url_for('static', filename='Meta/26.png') }}" alt="Traffic Sign 25" />
+        <!-- Description for Traffic Sign 2 -->
+        <div class="description" style="display:none;">
+            The "Traffic signals" sign warns of upcoming traffic lights.</div>
+    </div>
+
+    <div class="photo-container" onclick="showDescription(this)">
+        <img src="{{ url_for('static', filename='Meta/27.png') }}" alt="Traffic Sign 26" />
+        <!-- Description for Traffic Sign 2 -->
+        <div class="description" style="display:none;">
+            The "Pedestrians" sign alerts drivers to the presence of pedestrians who may be crossing the road ahead.</div>
+    </div>
+
+    <div class="photo-container" onclick="showDescription(this)">
+        <img src="{{ url_for('static', filename='Meta/28.png') }}" alt="Traffic Sign 27" />
+        <!-- Description for Traffic Sign 2 -->
+        <div class="description" style="display:none;">
+            The "Children crossing" sign warns drivers to watch out for children who may be crossing the road ahead.</div>
+    </div>
+
+    <div class="photo-container" onclick="showDescription(this)">
+        <img src="{{ url_for('static', filename='Meta/29.png') }}" alt="Traffic Sign 28" />
+        <!-- Description for Traffic Sign 2 -->
+        <div class="description" style="display:none;">
+            The "Bicycles crossing" sign alerts drivers to be cautious as bicycles may be crossing the road ahead.</div>
+    </div>
+
+    <div class="photo-container" onclick="showDescription(this)">
+        <img src="{{ url_for('static', filename='Meta/30.png') }}" alt="Traffic Sign 29" />
+        <!-- Description for Traffic Sign 2 -->
+        <div class="description" style="display:none;">
+            The "Beware of ice/snow" sign warns drivers of potentially hazardous icy or snowy road conditions ahead.</div>
+    </div>
+
+    <div class="photo-container" onclick="showDescription(this)">
+        <img src="{{ url_for('static', filename='Meta/31.png') }}" alt="Traffic Sign 30" />
+        <!-- Description for Traffic Sign 2 -->
+        <div class="description" style="display:none;">
+            The "Wild animals crossing" sign warns drivers of the possibility of wild animals crossing the road ahead</div>
+    </div>
+
+    <div class="photo-container" onclick="showDescription(this)">
+        <img src="{{ url_for('static', filename='Meta/32.png') }}" alt="Traffic Sign 31" />
+        <!-- Description for Traffic Sign 2 -->
+        <div class="description" style="display:none;">The "End speed + passing limits" sign marks the conclusion of both speed limit and no-passing zone restrictions.</div>
+    </div>
+
+    <div class="photo-container" onclick="showDescription(this)">
+        <img src="{{ url_for('static', filename='Meta/33.png') }}" alt="Traffic Sign 32" />
+        <!-- Description for Traffic Sign 2 -->
+        <div class="description" style="display:none;">
+            The "Turn right ahead" sign indicates an upcoming right turn for drivers</div>
+    </div>
+
+    <div class="photo-container" onclick="showDescription(this)">
+        <img src="{{ url_for('static', filename='Meta/34.png') }}" alt="Traffic Sign 33" />
+        <!-- Description for Traffic Sign 2 -->
+        <div class="description" style="display:none;">
+            The "Turn left ahead" sign indicates that there is a left turn ahead for drivers to anticipate.</div>
+    </div>
+
+    <div class="photo-container" onclick="showDescription(this)">
+        <img src="{{ url_for('static', filename='Meta/35.png') }}" alt="Traffic Sign 34" />
+        <!-- Description for Traffic Sign 2 -->
+        <div class="description" style="display:none;">
+            
+The "Ahead only" sign directs drivers to continue straight ahead, prohibiting left or right turns at the upcoming intersection.</div>
+    </div>
+
+    <div class="photo-container" onclick="showDescription(this)">
+        <img src="{{ url_for('static', filename='Meta/36.png') }}" alt="Traffic Sign 35" />
+        <!-- Description for Traffic Sign 2 -->
+        <div class="description" style="display:none;">The "Go straight or right" sign allows drivers to either proceed straight or turn right at the upcoming intersection.</div>
+    </div>
+
+    <div class="photo-container" onclick="showDescription(this)">
+        <img src="{{ url_for('static', filename='Meta/41.png') }}" alt="Traffic Sign 40" />
+        <!-- Description for Traffic Sign 2 -->
+        <div class="description" style="display:none;">The "End of no passing" traffic sign indicates the termination of a no-passing zone on a road.</div>
+    </div>
+
+    <div class="photo-container" onclick="showDescription(this)">
+        <img src="{{ url_for('static', filename='Meta/42.png') }}" alt="Traffic Sign 41" />
+        <!-- Description for Traffic Sign 2 -->
+        <div class="description" style="display:none;">The "End no passing vehicle > 3.5 tons" sign indicates the end of a prohibition on overtaking vehicles weighing over 3.5 tons.</div>
+    </div>
+
+      </div>
+//paste
+
+
+
+
+
+
+<script>
+function showDescription(container) {
+    var description = container.querySelector('.description');
+    description.style.display = 'block';
+}
+</script>
+
+{% endblock %}
